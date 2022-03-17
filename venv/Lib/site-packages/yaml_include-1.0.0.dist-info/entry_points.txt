@@ -1,0 +1,3 @@
+[console_scripts]
+yaml-include = yamlinclude.main:main
+

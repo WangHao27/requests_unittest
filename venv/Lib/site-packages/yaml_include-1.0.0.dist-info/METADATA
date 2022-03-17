@@ -1,0 +1,87 @@
+Metadata-Version: 2.1
+Name: yaml-include
+Version: 1.0.0
+Summary: Tool to generate yaml file with include
+Home-page: UNKNOWN
+Author: Mahe Thomas
+Author-email: thomas.mahe@nxp.com
+License: UNKNOWN
+Platform: UNKNOWN
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.4
+Description-Content-Type: text/markdown
+
+# yaml-include
+
+## Install
+Simply install this tool using pip :
+
+`pip install yaml-include`
+
+## Features :
+
+* Include document using `!include <PATH>`
+* Recursive inclusion
+* Relative & absolute path
+
+## Usage
+
+Given those three files :
+
+**root.yaml**
+```yaml
+- Document :
+    !include version.yaml
+
+- Job :
+    !include jobs/job1.yaml
+```
+
+**version.yaml**
+```yaml
+- name : "4.19.35"
+- sha1 : "37dadf3"
+```
+
+**jobs/job1.yaml**
+```yaml
+- name: "Test"
+- target: "imx8mq"
+```
+
+You can generate your file with included documents using :
+
+`yaml-include root.yaml --output-file generated.yaml`
+
+or simply print the result :
+
+`yaml-include root.yaml`
+
+Resulting this output :
+
+```yaml
+- Document:
+  - name: 4.19.35
+  - sha1: 37dadf3
+- Job:
+  - name: Test
+  - target: imx8mq
+
+```
+
+### Help
+
+```
+usage: yaml-include [-h] [-o OUTPUT_FILE] root_document
+
+positional arguments:
+  root_document         Root document
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -o OUTPUT_FILE, --output-file OUTPUT_FILE
+                        Path for your generated file.
+```
+
